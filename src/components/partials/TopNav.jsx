@@ -4,20 +4,20 @@ import axios from "../../utils/axios";
 
 const TopNav = () => {
   const [query, setquery] = useState("");
-  // console.log(query);
+  const [searches, setsearches] = useState([]);
 
   const GetSearches = async () => {
     try {
-      const d = await axios.get(`/search/multi?query=${query}`)
-      console.log(d)
+      const { data } = await axios.get(`/search/multi?query=${query}`);
+      setsearches(data.results);
     } catch (error) {
-      console.log("ERROR: ",error);
+      console.log("ERROR: ", error);
     }
-  }
+  };
 
-  useEffect(()=>{
-    GetSearches()
-  }, [query])
+  useEffect(() => {
+    GetSearches();
+  }, [query]);
 
   return (
     <div className="w-[80%] h-[10vh] relative flex justify-start ml-[18%] items-center">
@@ -29,17 +29,25 @@ const TopNav = () => {
         type="text"
         placeholder="search..."
       />
-      {query.length > 0 && <i onClick={()=>setquery("")} class="text-zinc-400 ri-close-line"></i>}
+      {query.length > 0 && (
+        <i onClick={() => setquery("")} class="text-zinc-400 ri-close-line"></i>
+      )}
 
       <div className="absolute top-[90%] w-[65%] max-h-[50vh] bg-zinc-200 overflow-y-auto rounded">
-        {/* <Link className="hover:text-black hover:bg-zinc-300 text-zinc-600 duration-300 font-semibold border-b-2 border-zinc-100 bg-zinc-200 w-[100%] flex items-center justify-start p-7">
-          <img src="" alt="" />
-          <span>Hello Everyone</span>
-        </Link> */}
-         
+        {searches.map((s, i) => (
+          <Link
+            key={i}
+            className="hover:text-black hover:bg-zinc-300 text-zinc-600 duration-300 font-semibold border-b-2 border-zinc-100 bg-zinc-200 w-[100%] flex items-center justify-start p-7"
+          >
+            {/* <img src="" alt="" /> */}
+            <span>
+              {s.name || s.title || s.original_title || s.original_name}
+            </span>
+          </Link>
+        ))}
       </div>
-    </div>  
-  ); 
+    </div>
+  );
 };
 
 export default TopNav;
