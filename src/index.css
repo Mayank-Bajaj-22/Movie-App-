@@ -26,7 +26,7 @@ select {
   background: #27272a;
   background-image: none;
   flex: 1;
-  padding: 0 0.5rem;
+  padding: 0 0.7rem;
   color: #fff;
   cursor: pointer;
   font-size: 1em;
@@ -53,7 +53,7 @@ select::ms-expand {
   position: absolute;
   top: 0;
   right: 0;
-  padding: 0.1em;
+  padding: 0.1em 0.7em;
   cursor: pointer;
   background: #27272a;
   pointer-events: none;
