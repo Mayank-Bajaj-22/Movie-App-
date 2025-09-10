@@ -7,47 +7,44 @@ import TopNav from "./partials/TopNav";
 import Dropdown from "./partials/Dropdown";
 import Cards from "./partials/Cards";
 
-const Popular = () => {
+const People = () => {
   const navigate = useNavigate();
-  const [category, setcategory] = useState("movie");
-  const [popular, setpopular] = useState([]);
+  const [category, setcategory] = useState("popular");
+  const [person, setperson] = useState([]);
   const [page, setpage] = useState(1);
   const [hasMore, sethasMore] = useState(true);
-  document.title = "SCSDB | Popular";
+  document.title = "SCSDB | Person";
 
-  const GetPopular = async () => {
+  const GetPerson = async () => {
     try {
-      const { data } = await axios.get(`${category}/popular?page=${page}`);
+      const { data } = await axios.get(`/person/${category}?page=${page}`);
 
       if (data.results.length > 0) {
-        setpopular((prev) => [...prev, ...data.results]);
+        setperson((prev) => [...prev, ...data.results]);
         setpage(page + 1);
       } else {
         sethasMore(false);
       }
- 
     } catch (error) {
       console.log("ERROR: ", error);
     }
   };
 
   const refreshHandler = () => {
-      if (popular.length === 0) {
-        GetPopular();
-      } else {
-        setpage(1);
-        setpopular([]);
-        GetPopular();
-      }
-    };
-  
-    useEffect(() => {
-      refreshHandler()
-    }, [category]);
-  
-    // console.log(popular);
+    if (person.length === 0) {
+      GetPerson();
+    } else {
+      setpage(1);
+      setperson([]);
+      GetPerson();
+    }
+  };
 
-    return popular.length > 0 ? (
+  useEffect(() => {
+    refreshHandler();
+  }, [category]);
+
+  return person.length > 0 ? (
     <div className="py-3 w-screen h-screen">
       <div className="w-full flex items-center justify-center">
         <h1 className="text-2xl font-semibold text-zinc-400">
@@ -55,26 +52,21 @@ const Popular = () => {
             onClick={() => navigate(-1)}
             className="hover:text-[#6556cd] ri-arrow-left-line"
           ></i>{" "}
-          Popular
+          People <small className="text-sm ml-2 text-zinc-600">({category})</small>
         </h1>
         <div className="flex items-center w-[80%]">
           <TopNav />
-          <Dropdown
-            title="Category"
-            options={["tv", "movie"]}
-            func={(e) => setcategory(e.target.value)}
-          />
           <div className="w-[2%]"></div>
         </div>
       </div>
 
       <InfiniteScroll
-        dataLength={popular.length}
-        next={GetPopular}
+        dataLength={person.length}
+        next={GetPerson}
         hasMore={hasMore}
         loader={<h1>Loading...</h1>}
       >
-        <Cards data={popular} title={category} />
+        <Cards data={person} title={category} />
       </InfiniteScroll>
     </div>
   ) : (
@@ -82,4 +74,4 @@ const Popular = () => {
   );
 };
 
-export default Popular;
+export default People;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TopNav from "./partials/TopNav";
 import Dropdown from "./partials/Dropdown";
@@ -14,6 +14,7 @@ const Trending = () => {
   const [trending, settrending] = useState([]);
   const [page, setpage] = useState(1);
   const [hasMore, sethasMore] = useState(true);
+  document.title = "SCSDB | Trending";
 
   const GetTrending = async () => {
     try {
@@ -46,7 +47,7 @@ const Trending = () => {
     refreshHandler()
   }, [category, duration]);
 
-  console.log(trending);
+  // console.log(trending);
 
   return trending.length > 0 ? (
     <div className="py-3 w-screen h-screen">

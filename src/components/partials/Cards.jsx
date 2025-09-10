@@ -7,14 +7,14 @@ const Cards = ({ data }) => {
       {data.map((c, i) => (
         <Link
           key={i}
-          className="w-[30vh] bg-[#2a2a35] rounded-xl overflow-hidden shadow-lg 
+          className="relative w-[30vh] bg-[#2a2a35] rounded-xl shadow-lg 
                      transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
         >
           <div className="relative">
             <img
               className="h-[330px] w-full object-cover rounded-t-xl"
               src={`https://image.tmdb.org/t/p/original/${
-                c.poster_path || c.backdrop_path
+                c.poster_path || c.backdrop_path || c.profile_path
               }`}
               alt={c.name || c.title}
             />
@@ -25,8 +25,12 @@ const Cards = ({ data }) => {
             <h1 className="text-lg text-white font-semibold truncate">
               {c.name || c.title || c.original_title || c.original_name}
             </h1>
-            
           </div>
+          {c.vote_average && (
+            <div className="absolute bottom-[20%] right-[-10%] bg-yellow-600 text-xl text-white rounded-full w-[6vh] h-[6vh] flex items-center justify-center z-999">
+              {(c.vote_average * 10).toFixed()} <sup>%</sup>
+            </div>
+          )}
         </Link>
       ))}
     </div>
