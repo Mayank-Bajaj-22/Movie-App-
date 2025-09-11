@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Cards = ({ data }) => {
+const Cards = ({ data, title }) => {
   return (
     <div className="flex flex-wrap justify-center gap-13 w-full px-[5%] py-10 bg-[#1F1E24]">
       {data.map((c, i) => (
         <Link
+        to={`/${c.media_Type || title}/details/${c.id}`}
           key={i}
-          className="relative w-[30vh] bg-[#2a2a35] rounded-xl shadow-lg 
-                     transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
+          className="relative w-[30vh] bg-[#2a2a35] rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
         >
           <div className="relative">
             <img

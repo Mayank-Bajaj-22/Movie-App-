@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
 
 const HorizontalCards = ({ data }) => {
+  console.log(data)
   return (
     <div className="w-[100%] flex overflow-y-hidden mb-5 p-5">
       {data.map((d, i) => (
-        <div
+        <Link
+        to={`/${d.media_type}/details/${d.id}`}
           key={i}
           className="min-w-[17%] mr-5 mb-5 bg-zinc-900 h-[40vh] flex flex-col rounded-lg"
         >
@@ -29,7 +31,7 @@ const HorizontalCards = ({ data }) => {
               <span className="text-zinc-500"> more</span>
             </p>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
