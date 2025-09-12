@@ -1,6 +1,12 @@
 import { useEffect } from "react";
 import { asyncloadmovie } from "../store/actions/movieActions";
-import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removemovie } from "../store/reducers/movieSlice";
 import HorizontalCards from "./partials/HorizontalCards";
@@ -112,8 +118,9 @@ const Moviedetails = () => {
         {info.watchproviders && info.watchproviders.flatrate && (
           <div className="flex gap-x-6 items-center text-white">
             <h1>Available on Platforms</h1>
-            {info.watchproviders.flatrate.map((w) => (
+            {info.watchproviders.flatrate.map((w, i) => (
               <img
+                key={i}
                 title={w.provider_name}
                 className="w-[7vh] h-[5vh] object-cover rounded-md"
                 src={`https://image.tmdb.org/t/p/original/${w.logo_path}`}
@@ -126,8 +133,9 @@ const Moviedetails = () => {
         {info.watchproviders && info.watchproviders.rent && (
           <div className="flex gap-x-6 items-center text-white">
             <h1>Available on Rent</h1>
-            {info.watchproviders.rent.map((w) => (
+            {info.watchproviders.rent.map((w, i) => (
               <img
+                key={i}
                 title={w.provider_name}
                 className="w-[7vh] h-[5vh] object-cover rounded-md"
                 src={`https://image.tmdb.org/t/p/original/${w.logo_path}`}
@@ -140,8 +148,9 @@ const Moviedetails = () => {
         {info.watchproviders && info.watchproviders.buy && (
           <div className="flex gap-x-6 items-center text-white">
             <h1>Available to Buy</h1>
-            {info.watchproviders.buy.map((w) => (
+            {info.watchproviders.buy.map((w, i) => (
               <img
+                key={i}
                 title={w.provider_name}
                 className="w-[7vh] h-[5vh] object-cover rounded-md"
                 src={`https://image.tmdb.org/t/p/original/${w.logo_path}`}
@@ -154,7 +163,7 @@ const Moviedetails = () => {
 
       <hr className="text-zinc-300 mt-10 mb-5 boarder-none h-[2px]" />
       {/* Part 4 Recommendations */}
-      <h1 className="text-2xl font-bold text-white mb-2">
+      <h1 className="text-3xl font-bold text-white mb-2">
         Recommendations & Similar Movies
       </h1>
       <HorizontalCards
