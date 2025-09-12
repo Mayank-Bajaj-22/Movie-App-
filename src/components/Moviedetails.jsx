@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { asyncloadmovie } from "../store/actions/movieActions";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removemovie } from "../store/reducers/movieSlice";
 import HorizontalCards from "./partials/HorizontalCards";
@@ -25,7 +25,7 @@ const Moviedetails = () => {
         backgroundPosition: "center",
         backgroundSize: "cover",
       }}
-      className="w-screen min-h-screen px-[8%] overflow-y-auto"
+      className="relative w-screen min-h-screen px-[8%] overflow-y-auto"
     >
       {/* Part 1 navigation */}
       <nav className="h-[10vh] w-full text-zinc-100 flex items-center gap-10 text-xl">
@@ -35,13 +35,13 @@ const Moviedetails = () => {
         ></Link>
 
         <a target="_blank" href={info.detail.homepage}>
-          <i class="ri-external-link-fill"></i>
+          <i className="ri-external-link-fill"></i>
         </a>
         <a
           target="_blank"
           href={`https://www.wikidata.org/wiki/${info.externalid.wikidata_id}`}
         >
-          <i class="ri-earth-fill"></i>
+          <i className="ri-earth-fill"></i>
         </a>
         <a
           target="_blank"
@@ -67,13 +67,13 @@ const Moviedetails = () => {
               info.detail.title ||
               info.detail.original_name ||
               info.detail.original_title}
-            <small className="text-2xl font-bold text-zinc-200">
+            <small className="text-2xl font-bold text-zinc-200 ml-3">
               {info.detail.release_date.split("-")[0]}
             </small>
           </h1>
 
           <div className="mt-3 mb-5 flex items-center gap-x-5">
-            <span className="bg-yellow-600 text-xl text-white rounded-full w-[6vh] h-[6vh] flex items-center justify-center z-999">
+            <span className="bg-yellow-600 text-xl text-white rounded-full w-[6vh] h-[6vh] flex items-center justify-center z-[10]">
               {(info.detail.vote_average * 10).toFixed()} <sup>%</sup>
             </span>
             <h1 className="font-semibold text-xl w-[60px] leading-6">
@@ -88,23 +88,27 @@ const Moviedetails = () => {
             {info.detail.tagline}
           </h1>
 
-          <h1 className="text-2xl mt-5 mb-3">Overview</h1>
-          <p className="">{info.detail.overview}</p>
+          <h1 className="text-2xl mt-5 mb-2">Overview</h1>
+          <p className="leading-relaxed text-zinc-200 mb-6">
+            {info.detail.overview}
+          </p>
 
-          <h1 className="text-2xl mt-5 mb-3">Movie Translated</h1>
-          <p className="mb-10 text-base">{info.translations.join(", ")}</p>
+          <h1 className="text-2xl mt-5 mb-2">Movie Translated</h1>
+          <p className="text-zinc-300 mb-6 text-base">
+            {info.translations.join(", ")}
+          </p>
 
           <Link
-            className="mt-5 p-5 rounded-lg bg-[#6556cd]"
+            className="inline-block p-5 rounded-lg bg-[#6556cd] hover:bg-[#4b44b6] transition duration-300 shadow-lg"
             to={`${pathname}/trailer`}
           >
-            <i class="text-xl mr-2 ri-play-fill"></i>PLay Trailer
+            <i className="text-xl mr-2 ri-play-fill"></i>PLay Trailer
           </Link>
         </div>
       </div>
 
       {/* Part 3 Available Platform */}
-      <div className="w-[80%] flex flex-col gap-y-5 mb-8 bg-red-100">
+      <div className="w-full md:w-[80%] flex flex-col gap-y-8 mt-9 text-white mb-5">
         {info.watchproviders && info.watchproviders.flatrate && (
           <div className="flex gap-x-6 items-center text-white">
             <h1>Available on Platforms</h1>
@@ -148,10 +152,17 @@ const Moviedetails = () => {
         )}
       </div>
 
+      <hr className="text-zinc-300 mt-10 mb-5 boarder-none h-[2px]" />
       {/* Part 4 Recommendations */}
+      <h1 className="text-2xl font-bold text-white mb-2">
+        Recommendations & Similar Movies
+      </h1>
       <HorizontalCards
-        data={info.recommendations.length > 0 ? info.recommendations : info.similar}
+        data={
+          info.recommendations.length > 0 ? info.recommendations : info.similar
+        }
       />
+      <Outlet />
     </div>
   ) : (
     <Loading />

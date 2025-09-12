@@ -27,7 +27,7 @@ const Cards = ({ data, title }) => {
             </h1>
           </div>
           {c.vote_average && (
-            <div className="absolute bottom-[20%] right-[-10%] bg-yellow-600 text-xl text-white rounded-full w-[6vh] h-[6vh] flex items-center justify-center z-999">
+            <div className="absolute bottom-[20%] right-[-10%] bg-yellow-600 text-xl text-white rounded-full w-[6vh] h-[6vh] flex items-center justify-center z-[10]">
               {(c.vote_average * 10).toFixed()} <sup>%</sup>
             </div>
           )}

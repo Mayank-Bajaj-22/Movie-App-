@@ -1,9 +1,8 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
 
 const HorizontalCards = ({ data }) => {
-  console.log(data)
+  // console.log(data)
   return (
     <div className="w-[100%] flex overflow-y-hidden mb-5 p-5">
       {data.map((d, i) => (
@@ -19,7 +18,7 @@ const HorizontalCards = ({ data }) => {
             }`}
             alt=""
           />
-          <div className="text-white p-3 h-[45%] bg-zinc-900 flex flex-col justify-between">
+          <div className="text-white p-3 h-[50%] bg-zinc-900 flex flex-col justify-between overflow-y-auto">
             <h1 className="text-xl font-semibold">
               {d.name || d.title || d.original_title || d.original_name}
             </h1>
