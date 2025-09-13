@@ -1,5 +1,3 @@
-import React from "react";
-import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import NothingToShow from "../NothingToShow";
@@ -19,12 +17,15 @@ const Trailer = () => {
       ></Link>
 
       {ytvideo ? (
-        <ReactPlayer
-          height={600}
-          width={1200}
-          url={`https://www.youtube.com/watch?v=${ytvideo.key}`}
-          controls
-        />
+        <iframe
+        width="80%"
+        height="80%"
+        src={`https://www.youtube.com/embed/${ytvideo.key}`}
+        title="YouTube trailer"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>
       ) : (
         <NothingToShow />
       )}
